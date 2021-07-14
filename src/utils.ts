@@ -3,14 +3,21 @@
  * Copyright (c) 2021 nghinv@lumi.biz
  */
 
-import type Animated from 'react-native-reanimated';
+import Animated, { useSharedValue } from 'react-native-reanimated';
 
 export interface Vector<T = number> {
   x: T;
   y: T;
 }
 
-export declare const useVector: (x1?: number, y1?: number | undefined) => Vector<Animated.SharedValue<number>>;
+export const useVector = (
+  x1 = 0,
+  y1?: number,
+): Vector<Animated.SharedValue<number>> => {
+  const x = useSharedValue(x1);
+  const y = useSharedValue(y1 ?? x1);
+  return { x, y };
+};
 
 export interface PolarPoint {
   theta: number;
