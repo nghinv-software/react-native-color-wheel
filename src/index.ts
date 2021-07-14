@@ -12,4 +12,4 @@ export * from './utils';
 
 export {
   ColorAnimated,
-}
+};

@@ -32,7 +32,7 @@ npm install @nghinv/react-native-color-wheel
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
-import WheelPicker, { ColorAnimated } from '@nghinv/react-native-color-wheel';
+import ColorWheel, { ColorAnimated } from '@nghinv/react-native-color-wheel';
 import Slider from '@nghinv/react-native-slider';
 
 function App() {
@@ -61,7 +61,7 @@ function App() {
         hsv={hsv}
         style={styles.currentColor}
       />
-      <WheelPicker
+      <ColorWheel
         hsv={hsv}
         size={260}
         // initialColor={color}
