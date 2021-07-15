@@ -13,6 +13,7 @@ import { HsvType, hsv2Hex, polar2Canvas, canvas2Polar, Vector, useVector } from 
 
 export interface ColorWheelComponentProps {
   hsv: Animated.SharedValue<HsvType>;
+  isGestureActive?: Animated.SharedValue<boolean>;
   size?: number;
   thumbSize?: number;
   onColorChange: (color: string) => void;
@@ -40,7 +41,7 @@ function ColorWheelComponent(props: ColorWheelComponentProps) {
     x: circleRadius,
     y: circleRadius,
   };
-  const isGestureActive = useSharedValue(false);
+  const isGestureActive = props.isGestureActive ?? useSharedValue(false);
   const point = useVector(center.x, center.y);
 
   useAnimatedReaction(() => {
@@ -127,7 +128,7 @@ function ColorWheelComponent(props: ColorWheelComponentProps) {
 
     return {
       // @ts-ignore
-      backgroundColor: withSpring(background, springConfig),
+      backgroundColor: isGestureActive.value ? background : withSpring(background, springConfig),
       transform: [
         { translateX: point.x.value },
         { translateY: point.y.value },

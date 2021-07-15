@@ -37,6 +37,7 @@ import Slider from '@nghinv/react-native-slider';
 
 function App() {
   const [color, setColor] = useState('#0000ff');
+  const isGestureActive = useSharedValue(false);
   const hsv = useSharedValue({
     h: 0,
     s: 0,
@@ -59,10 +60,12 @@ function App() {
     <View style={styles.container}>
       <ColorAnimated
         hsv={hsv}
+        isGestureActive={isGestureActive}
         style={styles.currentColor}
       />
       <ColorWheel
         hsv={hsv}
+        isGestureActive={isGestureActive}
         size={260}
         // initialColor={color}
         onColorChange={(value) => {

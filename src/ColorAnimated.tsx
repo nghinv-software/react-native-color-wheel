@@ -13,16 +13,14 @@ import { hsv2Hex, HsvType } from './utils';
 interface ColorAnimatedProps {
   hsv: Animated.SharedValue<HsvType>;
   style?: StyleProp<ViewStyle>;
+  isGestureActive?: Animated.SharedValue<boolean>;
 }
-
-ColorAnimated.defaultProps = {
-
-};
 
 function ColorAnimated(props: ColorAnimatedProps) {
   const {
     hsv,
     style,
+    isGestureActive,
   } = props;
 
   const containerStyle = useAnimatedStyle(() => {
@@ -30,7 +28,7 @@ function ColorAnimated(props: ColorAnimatedProps) {
 
     return {
       // @ts-ignore
-      backgroundColor: withSpring(background, springConfig),
+      backgroundColor: isGestureActive?.value ? background : withSpring(background, springConfig),
     };
   });
 
