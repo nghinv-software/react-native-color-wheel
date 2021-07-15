@@ -32,7 +32,7 @@ npm install @nghinv/react-native-color-wheel
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
-import ColorWheel, { ColorAnimated } from '@nghinv/react-native-color-wheel';
+import ColorWheel, { ColorAnimated, hex2Hsv } from '@nghinv/react-native-color-wheel';
 import Slider from '@nghinv/react-native-slider';
 
 function App() {
@@ -117,6 +117,7 @@ export default App;
 | onColorChange | `(color: string) => void` | `undefined` |  |
 | onColorConfirm | `(color: string) => void` | `undefined` |  |
 | hsv | `Animated.SharedValue<HsvType>` | `undefined` |  |
+| isGestureActive | `Animated.SharedValue<boolean>` | `undefined` |  |
 
 
 [version-badge]: https://img.shields.io/npm/v/@nghinv/react-native-color-wheel.svg?style=flat-square
