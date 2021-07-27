@@ -6,9 +6,8 @@
 
 import React, { useEffect, useCallback } from 'react';
 import equals from 'react-fast-compare';
-import Animated, { useSharedValue } from 'react-native-reanimated';
+import { colors, HsvAnimated, useHsv } from '@nghinv/react-native-animated';
 import ColorWheelComponent, { ColorWheelComponentProps } from './ColorWheelComponent';
-import { hex2Hsv, HsvType } from './utils';
 
 type ColorWheelComponentType = Omit<ColorWheelComponentProps, 'hsv' | 'onColorChange' | 'onColorConfirm'>;
 
@@ -16,7 +15,7 @@ export interface ColorWheelProps extends ColorWheelComponentType {
   initialColor?: string;
   onColorChange?: (color: string) => void;
   onColorConfirm?: (color: string) => void;
-  hsv?: Animated.SharedValue<HsvType>;
+  hsv?: HsvAnimated;
 }
 
 ColorWheel.defaultProps = {
@@ -30,12 +29,14 @@ function ColorWheel(props: ColorWheelProps) {
     onColorConfirm,
     ...otherProps
   } = props;
-  const hsv = props.hsv ?? useSharedValue({ h: 0, s: 0, v: 100 });
+  const hsv = props.hsv ?? useHsv({ h: 0, s: 0, v: 100 });
 
   useEffect(() => {
     if (initialColor) {
-      const hsvColor = hex2Hsv(initialColor!);
-      hsv.value = hsvColor;
+      const hsvColor = colors.hex2Hsv(initialColor!);
+      hsv.h.value = hsvColor.h;
+      hsv.s.value = hsvColor.s;
+      hsv.v.value = hsvColor.v;
     }
   }, [initialColor, hsv]);
 

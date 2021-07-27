@@ -8,11 +8,10 @@ import { StyleSheet, Image, useWindowDimensions } from 'react-native';
 import equals from 'react-fast-compare';
 import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import Animated, { useAnimatedGestureHandler, useAnimatedReaction, useAnimatedStyle, withSpring, withTiming, runOnJS, useSharedValue } from 'react-native-reanimated';
-import { springConfig, timingConfig } from '@nghinv/react-native-animated';
-import { HsvType, hsv2Hex, polar2Canvas, canvas2Polar, Vector, useVector } from './utils';
+import { springConfig, timingConfig, HsvAnimated, colors, vec, useVector, polar2Canvas, canvas2Polar, Vector } from '@nghinv/react-native-animated';
 
 export interface ColorWheelComponentProps {
-  hsv: Animated.SharedValue<HsvType>;
+  hsv: HsvAnimated;
   isGestureActive?: Animated.SharedValue<boolean>;
   size?: number;
   thumbSize?: number;
@@ -37,16 +36,13 @@ function ColorWheelComponent(props: ColorWheelComponentProps) {
   const { width } = useWindowDimensions();
   const size = props.size ?? width - 32;
   const circleRadius = size / 2;
-  const center = {
-    x: circleRadius,
-    y: circleRadius,
-  };
+  const center = vec.create(circleRadius);
   const isGestureActive = props.isGestureActive ?? useSharedValue(false);
   const point = useVector(center.x, center.y);
 
   useAnimatedReaction(() => {
-    const theta = (hsv.value.h * Math.PI) / 180;
-    const radius = (hsv.value.s * circleRadius) / 100;
+    const theta = (hsv.h.value * Math.PI) / 180;
+    const radius = (hsv.s.value * circleRadius) / 100;
     return polar2Canvas({ theta, radius }, center);
   }, (position) => {
     if (!isGestureActive.value) {
@@ -67,13 +63,10 @@ function ColorWheelComponent(props: ColorWheelComponentProps) {
     point.x.value = newPosition.x;
     point.y.value = newPosition.y;
 
-    hsv.value = {
-      h: (polarPoint.theta * 180) / Math.PI,
-      s: (radius * 100) / circleRadius,
-      v: hsv.value.v,
-    };
+    hsv.h.value = (polarPoint.theta * 180) / Math.PI;
+    hsv.s.value = (radius * 100) / circleRadius;
 
-    const color = hsv2Hex(hsv.value.h, hsv.value.s, hsv.value.v);
+    const color = colors.hsv2Hex(hsv.h.value, hsv.s.value, hsv.v.value);
     runOnJS(onColorChange)(color);
   };
 
@@ -106,17 +99,14 @@ function ColorWheelComponent(props: ColorWheelComponentProps) {
         point.x.value = withSpring(newPosition.x, springConfig);
         point.y.value = withSpring(newPosition.y, springConfig);
 
-        hsv.value = {
-          h: 0,
-          s: 0,
-          v: hsv.value.v,
-        };
+        hsv.h.value = 0;
+        hsv.s.value = 0;
 
-        const color = hsv2Hex(hsv.value.h, hsv.value.s, hsv.value.v);
+        const color = colors.hsv2Hex(hsv.h.value, hsv.s.value, hsv.v.value);
         runOnJS(onColorChange)(color);
         runOnJS(onColorConfirm)(color);
       } else {
-        const color = hsv2Hex(hsv.value.h, hsv.value.s, hsv.value.v);
+        const color = colors.hsv2Hex(hsv.h.value, hsv.s.value, hsv.v.value);
         runOnJS(onColorConfirm)(color);
       }
       isGestureActive.value = false;
@@ -124,7 +114,7 @@ function ColorWheelComponent(props: ColorWheelComponentProps) {
   });
 
   const thumbStyle = useAnimatedStyle(() => {
-    const background = hsv2Hex(hsv.value.h, hsv.value.s, 100);
+    const background = colors.hsv2Hex(hsv.h.value, hsv.s.value, 100);
 
     return {
       // @ts-ignore

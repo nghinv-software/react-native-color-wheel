@@ -1478,10 +1478,10 @@
     prettier "^2.3.0"
     typescript "^4.3.2"
 
-"@nghinv/react-native-animated@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@nghinv/react-native-animated/-/react-native-animated-0.0.1.tgz#1080f2a5a9a78013b69e799ed11fec1a46580594"
-  integrity sha512-cRTsJHXA2THhhUfJf3mNbviwAzNMO3Wf8I0aT7cOZmVnSP5+lbp1fS3LlL9/Q3xEJDl9sUFJmudYEZPM1ZJkyw==
+"@nghinv/react-native-animated@>=0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@nghinv/react-native-animated/-/react-native-animated-0.1.1.tgz#ced273ab6cb892c49ae79f8477edd4860612d7b9"
+  integrity sha512-3RYrkDTcsl70LHLKNjRUfldLjfujUl+5gx31MNzXvhQwq2nj1p53WjNl/4q21yDh5d/0LDS+o5lcn4rrRxcrpg==
   dependencies:
     react-native-reanimated ">=2.0.0-rc.0"
 

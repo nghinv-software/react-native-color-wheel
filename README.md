@@ -32,28 +32,28 @@ npm install @nghinv/react-native-color-wheel
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
-import ColorWheel, { ColorAnimated, hex2Hsv } from '@nghinv/react-native-color-wheel';
+import ColorWheel, { ColorAnimated } from '@nghinv/react-native-color-wheel';
+import { colors, useHsv } from '@nghinv/react-native-animated';
 import Slider from '@nghinv/react-native-slider';
 
 function App() {
   const [color, setColor] = useState('#0000ff');
   const isGestureActive = useSharedValue(false);
-  const hsv = useSharedValue({
+  const hsv = useHsv({
     h: 0,
     s: 0,
     v: 100,
   });
 
   useEffect(() => {
-    hsv.value = hex2Hsv('#0000ff');
+    const hsvValue = colors.hex2Hsv('#0000ff');
+    hsv.h.value = hsvValue.h;
+    hsv.s.value = hsvValue.s;
+    hsv.v.value = hsvValue.v;
   }, [hsv]);
 
   const onChange = (v: number) => {
-    hsv.value = {
-      h: hsv.value.h,
-      s: hsv.value.s,
-      v,
-    };
+    hsv.v.value = v;
   };
 
   return (
@@ -79,7 +79,7 @@ function App() {
       <Slider
         width={240}
         style={{ marginTop: 32 }}
-        value={hsv.value.v}
+        value={hsv.v.value}
         onChange={onChange}
       />
     </View>
@@ -116,8 +116,13 @@ export default App;
 | disabled | `boolean` | `false` |  |
 | onColorChange | `(color: string) => void` | `undefined` |  |
 | onColorConfirm | `(color: string) => void` | `undefined` |  |
-| hsv | `Animated.SharedValue<HsvType>` | `undefined` |  |
+| hsv | `HsvAnimated` | `undefined` |  |
 | isGestureActive | `Animated.SharedValue<boolean>` | `undefined` |  |
+
+---
+## Credits
+
+- [@Nghi-NV](https://github.com/Nghi-NV)
 
 
 [version-badge]: https://img.shields.io/npm/v/@nghinv/react-native-color-wheel.svg?style=flat-square

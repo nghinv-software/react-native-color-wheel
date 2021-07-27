@@ -7,11 +7,10 @@ import React from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 import equals from 'react-fast-compare';
 import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import { springConfig } from '@nghinv/react-native-animated';
-import { hsv2Hex, HsvType } from './utils';
+import { springConfig, colors, HsvAnimated } from '@nghinv/react-native-animated';
 
 interface ColorAnimatedProps {
-  hsv: Animated.SharedValue<HsvType>;
+  hsv: HsvAnimated;
   style?: StyleProp<ViewStyle>;
   isGestureActive?: Animated.SharedValue<boolean>;
 }
@@ -24,7 +23,7 @@ function ColorAnimated(props: ColorAnimatedProps) {
   } = props;
 
   const containerStyle = useAnimatedStyle(() => {
-    const background = hsv2Hex(hsv.value.h, hsv.value.s, hsv.value.v);
+    const background = colors.hsv2Hex(hsv.h.value, hsv.s.value, hsv.v.value);
 
     return {
       // @ts-ignore

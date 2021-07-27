@@ -1,6 +1,6 @@
 {
   "name": "@nghinv/react-native-color-wheel",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "React Native color wheel Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "react-fast-compare": "*",
-    "@nghinv/react-native-animated": "^0.0.1",
+    "@nghinv/react-native-animated": ">=0.1.1",
     "react-native-gesture-handler": "*",
     "react-native-reanimated": ">=2.0.0-rc.0"
   },

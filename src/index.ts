@@ -8,8 +8,6 @@ import ColorAnimated from './ColorAnimated';
 
 export default ColorWheel;
 
-export * from './utils';
-
 export {
   ColorAnimated,
 };
