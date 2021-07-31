@@ -1,6 +1,6 @@
 {
   "name": "@nghinv/react-native-color-wheel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Native color wheel Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -40,9 +40,7 @@
   },
   "homepage": "https://github.com/nghinv-software/react-native-color-wheel#readme",
   "publishConfig": {
-    "access": "public",
-    "cache": "~/.npm",
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
@@ -68,13 +66,13 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "^0.64.2"
-  },
-  "dependencies": {
-    "react-fast-compare": "*",
+    "react-native": "^0.64.2",
     "@nghinv/react-native-animated": ">=0.1.1",
     "react-native-gesture-handler": "*",
     "react-native-reanimated": ">=2.0.0-rc.0"
+  },
+  "dependencies": {
+    "react-fast-compare": "*"
   },
   "jest": {
     "preset": "react-native",
