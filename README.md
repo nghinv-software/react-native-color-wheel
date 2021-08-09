@@ -29,7 +29,7 @@ npm install @nghinv/react-native-color-wheel
 - peerDependencies
 
 ```sh
-yarn add react-native-gesture-handler react-native-reanimated @nghinv/react-native-animated
+yarn add react-native-gesture-handler react-native-reanimated
 ```
 
 ## Usage
